@@ -1,0 +1,83 @@
+#' Theme for fourfold displays
+#'
+#' `theme_fourfold()` is a minimal theme for [geom_fourfold()] that gives
+#' plots the plain look of `vcd::fourfold()`: a white panel without axes or
+#' gridlines, facet labels without boxes, centered titles, and compact spacing
+#' between panels. It also sets the text size, font, and line width.
+#'
+#' @details
+#' `base_size` and `base_family` control all text, including the category
+#' labels and cell counts drawn by `geom_fourfold()`. These grow with the size
+#' of each panel, so larger plots get larger labels, but never shrink below
+#' five-sixths of `base_size` (10 points by default). Additional theme elements
+#' passed through `...` are applied last and therefore override the defaults.
+#'
+#' The theme sets no `aspect.ratio`. The display stays round, and the panels
+#' square by default, because [geom_fourfold()] adds a coordinate system with
+#' `ratio = 1` (see the Coordinate systems section of [geom_fourfold()]).
+#' Passing `aspect.ratio` through `...` fixes the panel's shape and overrides
+#' that ratio, so circles become ellipses when the ranges of the `x` and `y`
+#' axes differ, for example when a missing value keeps a place on one axis.
+#' Therefore, it is recommended to leave `aspect.ratio` unset.
+#'
+#' This theme uses **ggplot2**'s theme-derived geom defaults and requires
+#' **ggplot2** 4.0.0 or later.
+#'
+#' @param base_size Base font size in points.
+#' @param base_family Base font family. The default, `""`, uses the graphics
+#'   device's default family.
+#' @param ... Additional arguments passed to [ggplot2::theme()]. They are
+#'   applied after the fourfold defaults.
+#'
+#' @return A complete **ggplot2** theme.
+#'
+#' @seealso [geom_fourfold()] and [ggplot2::theme()]
+#'
+#' @examples
+#' ucb <- as.data.frame(UCBAdmissions)
+#'
+#' ggplot2::ggplot(
+#'   ucb,
+#'   ggplot2::aes(x = Gender, y = Admit, weight = Freq)
+#' ) +
+#'   geom_fourfold() +
+#'   ggplot2::facet_wrap(ggplot2::vars(Dept), ncol = 3) +
+#'   theme_fourfold(base_size = 12)
+#'
+#' @importFrom ggplot2 %+replace% element_blank element_geom element_rect
+#' @importFrom ggplot2 element_text margin rel theme theme_void
+#' @importFrom grid unit
+#' @export
+theme_fourfold <- function(base_size = 12, base_family = "", ...) {
+  fourfold_theme <- ggplot2::`%+replace%`(
+    ggplot2::theme_void(base_size = base_size, base_family = base_family),
+    ggplot2::theme(
+      plot.background = ggplot2::element_rect(fill = "white", colour = NA),
+      panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+      panel.spacing.x = grid::unit(1.25, "lines"),
+      panel.spacing.y = grid::unit(0.7, "lines"),
+      strip.background = ggplot2::element_blank(),
+      strip.text = ggplot2::element_text(
+        size = ggplot2::rel(1.25), margin = ggplot2::margin(b = 1)
+      ),
+      strip.text.y = ggplot2::element_text(angle = 0),
+      plot.title = ggplot2::element_text(
+        hjust = 0.5, face = "bold", size = ggplot2::rel(5 / 3),
+        margin = ggplot2::margin(b = 3)
+      ),
+      plot.subtitle = ggplot2::element_text(
+        hjust = 0.5, margin = ggplot2::margin(b = 3)
+      ),
+      plot.caption = ggplot2::element_text(hjust = 0.5),
+      plot.title.position = "plot",
+      plot.margin = ggplot2::margin(8, 12, 8, 12),
+      geom = ggplot2::element_geom(
+        fontsize = base_size,
+        family = base_family,
+        linewidth = 0.28
+      )
+    )
+  )
+
+  fourfold_theme + ggplot2::theme(...)
+}

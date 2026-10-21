@@ -1,0 +1,43 @@
+Package: ggfourfold
+Type: Package
+Title: Fourfold Displays for 'ggplot2'
+Version: 0.1.0
+Language: en-US
+Authors@R: c(
+    person(given = "Gavin", family = "Klorfine",
+           role = c("aut", "cre", "cph"),
+           email = "gklorfin@yorku.ca",
+           comment = c(ORCID = "0009-0003-0395-4512")),
+    person(given = "Michael", family = "Friendly", 
+           role= "aut", 
+           email="friendly@yorku.ca",
+           comment = c(ORCID = "0000-0002-3237-0941"))
+  )
+Maintainer: Gavin Klorfine <gklorfin@yorku.ca>
+Depends: R (>= 4.1.0)
+Imports: ggplot2 (>= 4.0.0), grDevices, grid, stats
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0), vcd
+Description: Draws fourfold displays of 2 x 2 (x k) contingency tables as a
+    'ggplot2' layer, following Friendly (1994)
+    <https://datavis.ca/papers/4fold/4fold.pdf> and Friendly and Meyer (2016)
+    <doi:10.1201/9781315374413>. Cell frequencies are shown as quarter-circles
+    or squares of proportional area, with confidence rings for the
+    odds ratio and shading for the direction and strength of association.
+    Stratified tables are shown with 'ggplot2' faceting and a corresponding
+    'ggplot2' theme is provided.
+License: GPL (>= 2)
+Encoding: UTF-8
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0
+VignetteBuilder: knitr
+URL: https://gavinklorfine.com/ggfourfold/,
+        https://github.com/gklorfine/ggfourfold
+BugReports: https://github.com/gklorfine/ggfourfold/issues
+Collate: 'fourfold-palette.R' 'geom-fourfold.R' 'theme-fourfold.R'
+NeedsCompilation: no
+Packaged: 2026-10-10 01:18:24 UTC; gklorfine
+Author: Gavin Klorfine [aut, cre, cph] (ORCID:
+    <https://orcid.org/0009-0003-0395-4512>),
+  Michael Friendly [aut] (ORCID: <https://orcid.org/0000-0002-3237-0941>)
+Repository: CRAN
+Date/Publication: 2026-10-21 14:20:11 UTC
